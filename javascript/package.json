@@ -1,0 +1,13 @@
+{
+    "name": "exercism-javascript",
+    "private": true,
+    "devDependencies": {
+        "@exercism/babel-preset-javascript": "latest",
+        "@exercism/eslint-config-javascript": "latest",
+        "jest": "latest",
+        "babel-jest": "latest"
+    },
+    "scripts": {
+        "test": "jest"
+    }
+}
