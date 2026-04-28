@@ -1,0 +1,7 @@
+# SQLite Datenbanken (generiert bei Tests)
+*.db
+*.db-shm
+*.db-wal
+
+# Test-Artefakte
+test_reporter.sql
