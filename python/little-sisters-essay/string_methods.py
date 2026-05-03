@@ -8,7 +8,7 @@ def capitalize_title(title):
     :return: str - title string in title case (first letters capitalized).
     """
 
-    return title[0].upper() + title[1:]
+    return title.title()
 
 
 def check_sentence_ending(sentence):
@@ -40,4 +40,4 @@ def replace_word_choice(sentence, old_word, new_word):
     :return: str - input sentence with new words in place of old words.
     """
 
-    return sentence[old_word] == new_word
+    return sentence.replace(old_word, new_word)
