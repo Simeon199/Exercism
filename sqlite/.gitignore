@@ -1,4 +1,0 @@
-# SQLite Datenbanken (generiert bei Tests)
-*.db
-*.db-shm
-*.db-wal
