@@ -42,7 +42,6 @@ def above_threshold(student_scores, threshold):
             best_students.append(score)
     return best_students
 
-
 def letter_grades(highest):
     """Create a list of grade thresholds based on the provided highest grade.
 
@@ -56,17 +55,13 @@ def letter_grades(highest):
             71 <= "B" <= 85
             86 <= "A" <= 100
     """
-    partition = (highest - 40) // 4 - 1
-    letter_grades = [41]
-    grade = letter_grades[0]
+    letter_grades = []
+    iteration = int((highest - 40)/4)
     i = 0
-    while i in range(0, 3):
-        grade += partition
-        grade += 1
-        letter_grades.append(grade)
+    while i in range(0,4):
+        letter_grades.append(41+iteration*i)
         i += 1
     return letter_grades
-
 
 
 def student_ranking(student_scores, student_names):
@@ -79,7 +74,7 @@ def student_ranking(student_scores, student_names):
     
     result_list = []
     for index, name in enumerate(student_names):
-        result_item = str(index + 1) + '.' + ' ' + name + ':' + ' ' + str(student_scores[index])
+        result_item = "{}. {}: {}".format(index+1, name, student_scores[index])
         result_list.append(result_item)
     return result_list
 
