@@ -1,0 +1,92 @@
+"""Functions to keep track and alter inventory."""
+
+
+def create_inventory(items):
+    """Create a dict that tracks the amount (count) of each element on the `items` list.
+
+    Parameters:
+        items (list): Items to create an inventory from.
+
+    Returns:
+        dict: The inventory dictionary.
+    """
+    item_dict = {}
+    for item in items:
+        index = 0
+        item_count = 0
+        while index < len(items):
+            if items[index] == item:
+                item_count += 1
+                item_dict[item] = item_count
+            index += 1  
+    return item_dict
+
+def add_items(inventory, items):
+    """Add or increment items in inventory using elements from the items `list`.
+
+    Parameters:
+        inventory (dict): Dictionary of existing inventory.
+        items (list): List of items to update the inventory with.
+
+    Returns:
+        dict: The inventory updated with the new items.
+    """
+
+    for item in items:
+        inventory_item = inventory.get(item, "not found")
+        if inventory_item == "not found":
+            inventory[item] = 1
+        else:
+            inventory[item] += 1
+    return inventory
+
+
+def decrement_items(inventory, items):
+    """Decrement items in inventory using elements from the `items` list.
+
+    Parameters:
+        inventory (dict): Inventory dictionary.
+        items (list): List of items to decrement from the inventory.
+
+    Returns:
+        dict: Updated inventory with items decremented.
+    """
+
+    items_array_inventory = create_inventory(items)
+    for key in inventory:
+        if "not found" != items_array_inventory.get(key, "not found"):
+            inventory[key] = inventory[key] - items_array_inventory[key]
+            if inventory[key] < 0:
+                inventory[key] = 0
+    return inventory 
+
+
+def remove_item(inventory, item):
+    """Remove item from inventory if it matches `item` string.
+
+    Parameters:
+        inventory (dict): Inventory dictionary.
+        item (str): Item to remove from the inventory.
+
+    Returns:
+        dict: Updated inventory with item removed. Current inventory if item does not match.
+    """
+
+    inventory.pop(item, "Unknown")
+    return inventory
+
+
+def list_inventory(inventory):
+    """Create a list containing only available (item_name, item_count > 0) pairs in inventory.
+
+    Parameters:
+        inventory (dict): An inventory dictionary.
+
+    Returns:
+        list[tuple]: List of key, value tuples from the inventory dictionary.
+    """
+    inventory_list = []
+    for key, value in inventory.items():
+        if value > 0:
+            inventory_list.append((key, value))
+    return inventory_list
