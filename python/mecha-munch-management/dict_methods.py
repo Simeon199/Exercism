@@ -31,8 +31,14 @@ def read_notes(notes):
     Returns:
         dict: A user shopping cart dictionary.
     """
+    shopping_cart = {}
+    for note in notes:
+        if note not in shopping_cart.keys():
+            shopping_cart.setdefault(note, 1)
+        else:
+            shopping_cart[note] = shopping_cart[note] + 1
+    return shopping_cart
 
-    pass
 
 
 def update_recipes(ideas, recipe_updates):
@@ -46,7 +52,8 @@ def update_recipes(ideas, recipe_updates):
         dict: The updated "recipe ideas" dict.
     """
 
-    pass
+    ideas.update(dict(recipe_updates))
+    return ideas
 
 
 def sort_entries(cart):
@@ -59,7 +66,7 @@ def sort_entries(cart):
         dict: A user's shopping cart sorted in alphabetical order.
     """
 
-    pass
+    return dict(sorted(cart.items()))
 
 
 def send_to_store(cart, aisle_mapping):
@@ -73,7 +80,11 @@ def send_to_store(cart, aisle_mapping):
         dict: The fulfillment dictionary ready to send to store.
     """
 
-    pass
+    result = {}
+    for key, value in reversed(sorted(aisle_mapping.items())):
+        if key in cart.keys():
+            result[key] = [cart[key]] + value
+    return result
 
 
 def update_store_inventory(fulfillment_cart, store_inventory):
@@ -87,4 +98,12 @@ def update_store_inventory(fulfillment_cart, store_inventory):
         dict: The store_inventory updated.
     """
 
-    pass
+    for key in store_inventory.keys():
+        if key in fulfillment_cart.keys():
+            stored_items = store_inventory[key][0]
+            stored_items = stored_items - fulfillment_cart[key][0]
+            if stored_items == 0:
+                store_inventory[key][0] = "Out of Stock"
+            else:
+                store_inventory[key][0] = stored_items
+    return store_inventory
