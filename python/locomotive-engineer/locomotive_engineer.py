@@ -1,7 +1,7 @@
 """Functions which helps the locomotive engineer to keep track of the train."""
 
 
-def get_list_of_wagons():
+def get_list_of_wagons(*args):
     """Return a list of wagons, given an arbitrary amount of wagon numbers.
 
     Parameters:
@@ -10,7 +10,8 @@ def get_list_of_wagons():
     Returns:
         list: A list of wagon numbers.
     """
-    pass
+    *list_of_wagons, = args
+    return list_of_wagons
 
 
 def fix_list_of_wagons(each_wagons_id, missing_wagons):
@@ -23,7 +24,8 @@ def fix_list_of_wagons(each_wagons_id, missing_wagons):
     Returns:
         list[int]: The corrected list of wagons.
     """
-    pass
+    result_array = [1, *missing_wagons, *each_wagons_id[3:], *each_wagons_id[:2]]
+    return result_array
 
 
 def add_missing_stops(route):
