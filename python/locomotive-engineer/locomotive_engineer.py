@@ -65,4 +65,7 @@ def fix_wagon_depot(wagons_rows):
     Returns:
         list[list[tuple]]: the list of rows of wagons.
     """
-    pass
+    result_list = []
+    x, y, z = zip(*wagons_rows)
+    [result_list.append(list(item)) for item in (x,y,z)]
+    return result_list
