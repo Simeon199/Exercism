@@ -10,16 +10,8 @@ def create_inventory(items):
     Returns:
         dict: The inventory dictionary.
     """
-    item_dict = {}
-    for item in items:
-        index = 0
-        item_count = 0
-        while index < len(items):
-            if items[index] == item:
-                item_count += 1
-                item_dict[item] = item_count
-            index += 1  
-    return item_dict
+    result_dict = {i: items.count(i) for i in items}
+    return result_dict
 
 def add_items(inventory, items):
     """Add or increment items in inventory using elements from the items `list`.
@@ -85,8 +77,5 @@ def list_inventory(inventory):
     Returns:
         list[tuple]: List of key, value tuples from the inventory dictionary.
     """
-    inventory_list = []
-    for key, value in inventory.items():
-        if value > 0:
-            inventory_list.append((key, value))
-    return inventory_list
+    result_list = [i for i in inventory.items() if i[1] != 0]
+    return result_list
