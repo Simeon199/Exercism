@@ -25,13 +25,8 @@ def add_items(inventory, items):
     """
 
     for item in items:
-        inventory_item = inventory.get(item, "not found")
-        if inventory_item == "not found":
-            inventory[item] = 1
-        else:
-            inventory[item] += 1
+        inventory[item] = inventory.get(item, 0) + 1
     return inventory
-
 
 def decrement_items(inventory, items):
     """Decrement items in inventory using elements from the `items` list.
@@ -43,15 +38,8 @@ def decrement_items(inventory, items):
     Returns:
         dict: Updated inventory with items decremented.
     """
-
-    items_array_inventory = create_inventory(items)
-    for key in inventory:
-        if "not found" != items_array_inventory.get(key, "not found"):
-            inventory[key] = inventory[key] - items_array_inventory[key]
-            if inventory[key] < 0:
-                inventory[key] = 0
-    return inventory 
-
+    inventory = {item: inventory[item] - items.count(item) if inventory[item] > items.count(item) else 0 for item in inventory.keys()}
+    return inventory
 
 def remove_item(inventory, item):
     """Remove item from inventory if it matches `item` string.
