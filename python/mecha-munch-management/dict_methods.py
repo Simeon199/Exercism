@@ -13,14 +13,8 @@ def add_item(current_cart, items_to_add):
     """
 
     for item in items_to_add:
-        if item in current_cart.keys():
-            item_amount = current_cart[item]
-            item_amount += 1
-            current_cart[item] = item_amount
-        else:
-            current_cart.setdefault(item, 1)
+        current_cart[item] = current_cart.setdefault(item, 0) + 1
     return current_cart
-
 
 def read_notes(notes):
     """Create user cart from an iterable notes entry.
@@ -31,14 +25,9 @@ def read_notes(notes):
     Returns:
         dict: A user shopping cart dictionary.
     """
-    shopping_cart = {}
-    for note in notes:
-        if note not in shopping_cart.keys():
-            shopping_cart.setdefault(note, 1)
-        else:
-            shopping_cart[note] = shopping_cart[note] + 1
-    return shopping_cart
 
+    shopping_cart = dict.fromkeys(notes, 1)
+    return shopping_cart
 
 
 def update_recipes(ideas, recipe_updates):
@@ -100,8 +89,7 @@ def update_store_inventory(fulfillment_cart, store_inventory):
 
     for key in store_inventory.keys():
         if key in fulfillment_cart.keys():
-            stored_items = store_inventory[key][0]
-            stored_items = stored_items - fulfillment_cart[key][0]
+            stored_items = store_inventory[key][0] - fulfillment_cart[key][0]
             if stored_items == 0:
                 store_inventory[key][0] = "Out of Stock"
             else:
