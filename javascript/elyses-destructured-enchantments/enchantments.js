@@ -33,8 +33,10 @@ export function getSecondCard(deck) {
  * @returns {[Card, Card]} new deck with the 2 cards swapped
  */
 export function swapTwoCards(deck) {
-  [deck[0], deck[1]] = [deck[1], deck[0]];
-  return deck;
+  // @ts-ignore
+  [deck.values[0], deck.values[1]] = [deck.values[1], deck.values[0]];
+  // @ts-ignore
+  return deck.values;
 }
 
 /**
@@ -45,8 +47,10 @@ export function swapTwoCards(deck) {
  * @returns {[Card, Card, Card]} new deck with the 3 cards shifted by one position
  */
 export function shiftThreeCardsAround(deck) {
-  [deck[0], deck[1], deck[2]] = [deck[1], deck[2], deck[0]];
-  return deck;
+  // @ts-ignore
+  [deck.values[0], deck.values[1], deck.values[2]] = [deck.values[1], deck.values[2], deck.values[0]];
+  // @ts-ignore
+  return deck.values;
 }
 
 /**
