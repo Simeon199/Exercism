@@ -64,10 +64,10 @@ def categorize_dish(dish_name, dish_ingredients):
     All dishes will "fit" into one of the categories imported from `sets_categories_data.py`
     """
 
-    categories = (VEGAN, VEGETARIAN, PALEO, KETO, OMNIVORE)
-    for category in categories:
-        if category >= set(dish_ingredients):
-            return dish_name + ':' + ' ' + str(category)
+    categories = {"VEGAN": VEGAN, "VEGETARIAN": VEGETARIAN, "PALEO": PALEO, "KETO": KETO, "OMNIVORE": OMNIVORE}
+    for category in categories.keys():
+        if categories[category].issuperset(dish_ingredients):
+            return dish_name + ':' + ' ' + category
 
 
 def tag_special_ingredients(dish):
@@ -84,7 +84,9 @@ def tag_special_ingredients(dish):
     SPECIAL_INGREDIENTS constant imported from `sets_categories_data.py`.
     """
 
-    pass
+    special_ingredient_dishes = set(dish[1]).intersection(SPECIAL_INGREDIENTS)
+    return (dish[0], special_ingredient_dishes)
+    
 
 
 def compile_ingredients(dishes):
@@ -99,7 +101,12 @@ def compile_ingredients(dishes):
     This function should return a `set` of all ingredients from all listed dishes.
     """
 
-    pass
+    all_dishes = set()
+    while len(dishes) > 0:
+        next_dish = dishes.pop()
+        all_dishes = all_dishes.union(next_dish)
+    return all_dishes
+        
 
 
 def separate_appetizers(dishes, appetizers):
@@ -116,7 +123,7 @@ def separate_appetizers(dishes, appetizers):
     Either list could contain duplicates and may require de-duping.
     """
 
-    pass
+    return set(dishes).difference(set(appetizers))
 
 
 def singleton_ingredients(dishes, intersection):
@@ -137,4 +144,9 @@ def singleton_ingredients(dishes, intersection):
     The function should return a `set` of ingredients that only appear in a single dish.
     """
 
-    pass
+    ingredient_list = []
+    for dish in dishes:
+        single_dish = intersection.difference(dish)
+        ingredient_list.append(single_dish)
+    return compile_ingredients(ingredient_list)
+
