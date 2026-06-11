@@ -123,7 +123,7 @@ def separate_appetizers(dishes, appetizers):
     Either list could contain duplicates and may require de-duping.
     """
 
-    return set(dishes).difference(set(appetizers))
+    return list(set(dishes).difference(set(appetizers)))
 
 
 def singleton_ingredients(dishes, intersection):
@@ -144,9 +144,8 @@ def singleton_ingredients(dishes, intersection):
     The function should return a `set` of ingredients that only appear in a single dish.
     """
 
-    ingredient_list = []
+    union_set = set() 
     for dish in dishes:
-        single_dish = intersection.difference(dish)
-        ingredient_list.append(single_dish)
-    return compile_ingredients(ingredient_list)
-
+        union_set = union_set ^ dish
+    ingredient_set = union_set - intersection
+    return ingredient_set
