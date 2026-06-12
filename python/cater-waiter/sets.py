@@ -102,8 +102,9 @@ def compile_ingredients(dishes):
     """
 
     all_dishes = set()
-    while len(dishes) > 0:
-        next_dish = dishes.pop()
+    dishes_cp = dishes.copy()
+    while len(dishes_cp) > 0:
+        next_dish = dishes_cp.pop()
         all_dishes = all_dishes.union(next_dish)
     return all_dishes
         
