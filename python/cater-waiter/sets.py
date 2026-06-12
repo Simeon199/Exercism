@@ -144,8 +144,12 @@ def singleton_ingredients(dishes, intersection):
     The function should return a `set` of ingredients that only appear in a single dish.
     """
 
-    union_set = set() 
+    # sym_diff = set()
+    # for dish in dishes:
+    #     sym_diff = sym_diff.symmetric_difference(dish)
+    # return sym_diff - intersection
+
+    singletons = set()
     for dish in dishes:
-        union_set = union_set ^ dish
-    ingredient_set = union_set - intersection
-    return ingredient_set
+        singletons = singletons.union(dish.difference(intersection))
+    return singletons
