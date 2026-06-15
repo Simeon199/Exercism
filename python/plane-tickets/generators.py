@@ -17,10 +17,10 @@ def generate_seat_letters(number):
 
     """
     letters = ["A", "B", "C", "D"]
-    for i in range(4):
+    for i in range(number):
         i = i % 4
         yield letters[i]
-
+    
 
 def generate_seats(number):
     """Generate a series of identifiers for airline seats.
@@ -40,15 +40,20 @@ def generate_seats(number):
 
     """
 
-    letter = generate_seat_letters(number)
-    for item in range(1, number + 1):
-        i = 0
-        i = i % 4
-        if item == 13:
+    letters = ['A', 'B', 'C', 'D']
+    count = 0
+    row = 1
+
+    while count < number:
+        if row == 13:
+            row += 1
             continue
-        while i < 4:
-            yield str(item) + next(letter)
-            i += 1
+        for letter in letters:
+            if count >= number:
+                return         
+            yield f"{row}{letter}"
+            count += 1
+        row += 1
 
 
 def assign_seats(passengers):
@@ -83,5 +88,10 @@ def generate_codes(seat_numbers, flight_id):
     """
 
     for item in seat_numbers:
-        code = item + flight_id + '0000'
+        zeros = ''
+        number = len(item + flight_id)
+        while 12 - number > 0:
+            zeros += '0'
+            number += 1
+        code = item + flight_id + zeros
         yield code
