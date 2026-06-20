@@ -8,7 +8,7 @@
  * @returns {number[]} deck with every card doubled
  */
 export function seeingDouble(deck) {
-  throw new Error('Implement the seeingDouble function');
+  return deck.map((card) => card * 2);
 }
 
 /**
@@ -19,7 +19,14 @@ export function seeingDouble(deck) {
  * @returns {number[]} deck with triplicate 3s
  */
 export function threeOfEachThree(deck) {
-  throw new Error('Implement the threeOfEachThree function');
+  // @ts-ignore
+  return deck.reduce((acc, el) => {
+    if(el === 3){
+      return [...acc, 3, 3, 3];
+    } else {
+      return [...acc, el];
+    }
+  }, []);
 }
 
 /**
@@ -31,7 +38,7 @@ export function threeOfEachThree(deck) {
  * @returns {number[]} deck with only two middle cards
  */
 export function middleTwo(deck) {
-  throw new Error('Implement the middleTwo function');
+  return deck.slice(4, 6);
 }
 
 /**
@@ -43,7 +50,12 @@ export function middleTwo(deck) {
  */
 
 export function sandwichTrick(deck) {
-  throw new Error('Implement the sandwichTrick function');
+  let firstCard = deck.shift();
+  let lastCard = deck.pop();
+  let indexToInsert = Math.floor(deck.length / 2);
+  // @ts-ignore
+  deck.splice(indexToInsert, 0, lastCard, firstCard);
+  return deck;
 }
 
 /**
@@ -54,7 +66,7 @@ export function sandwichTrick(deck) {
  * @returns {number[]} deck with only 2s
  */
 export function twoIsSpecial(deck) {
-  throw new Error('Implement the twoIsSpecial function');
+  return deck.filter((card) => card === 2);
 }
 
 /**
@@ -65,7 +77,15 @@ export function twoIsSpecial(deck) {
  * @returns {number[]} ordered deck
  */
 export function perfectlyOrdered(deck) {
-  throw new Error('Implement the perfectlyOrdered function');
+  // @ts-ignore
+  // eslint-disable-next-line array-callback-return
+  deck.sort((item1, item2) => {
+    if(Number(item1) < Number(item2)){
+      return -1;
+    }
+  });
+  deck.map((item) => Number(item));
+  return deck;
 }
 
 /**
@@ -76,5 +96,5 @@ export function perfectlyOrdered(deck) {
  * @returns {number[]} reordered deck
  */
 export function reorder(deck) {
-  throw new Error('Implement the reorder function');
+  return deck.reverse();
 }
