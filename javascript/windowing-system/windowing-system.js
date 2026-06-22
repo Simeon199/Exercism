@@ -61,11 +61,9 @@ Position.prototype.move = function(x, y){
 
 // @ts-ignore
 export function changeWindow(programWindow){
-    const newPosOne = new Position();
-    const newPosTwo = new Position(100, 150);
+    const newPos = new Position(100, 150);
     const newSize = new Size(400, 300);
-    programWindow.move(newPosOne);
     programWindow.resize(newSize);
-    programWindow.move(newPosTwo);
+    programWindow.move(newPos);
     return programWindow;
 }
