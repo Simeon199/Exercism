@@ -13,17 +13,21 @@ export function Size(width, height){
     this.height = height;
 }
 
-export function Point(){
-    this.x = 0;
-    this.y = 0;
+export function Point(x = 0, y = 0){
+    this.x = x;
+    this.y = y;
 }
 
 export class ProgramWindow {
     constructor(){
-        this.screenSize = {
-            width: 800,
-            height: 600
-        }
+        this.screenSize = new Size(800, 600);
+        this.size = new Size();
+        this.position = new Point();
+    }
+
+    // @ts-ignore
+    resize(newSize){
+        this.size.resize(newSize.width, newSize.height);
     }
 }
 
