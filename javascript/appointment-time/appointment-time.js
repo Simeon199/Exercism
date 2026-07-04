@@ -1,5 +1,4 @@
-/* eslint-disable no-shadow */
-// @ts-check
+ // @ts-check
 
 /**
  * Create an appointment
