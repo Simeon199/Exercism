@@ -11,7 +11,21 @@
  * @returns {number} the price of the pizza
  */
 export function pizzaPrice(pizza, ...extras) {
-  throw new Error('Remove this line and implement the function');
+  let prices = {
+    'Margherita': 7,
+    'Caprese': 9,
+    'Formaggio': 10,
+    'ExtraSauce': 1,
+    'ExtraToppings': 2
+  }
+
+  if(extras.length === 0){
+    return prices[pizza];
+  }
+
+  const lastExtra = extras[extras.length - 1];
+  const remainingExtras = extras.slice(0, -1);
+  return pizzaPrice(pizza, ...remainingExtras) + prices[lastExtra];
 }
 
 /**
@@ -24,5 +38,12 @@ export function pizzaPrice(pizza, ...extras) {
  * @returns {number} the price of the total order
  */
 export function orderPrice(pizzaOrders) {
-  throw new Error('Remove this line and implement the function');
+  let totalPrice = 0;
+  for(let i=0; i < pizzaOrders.length; i++){
+    // @ts-ignore
+    let order = pizzaOrders[i];
+    let singlePrice = pizzaPrice(order.pizza, ...order.extras);
+    totalPrice = totalPrice + singlePrice;
+  };
+  return totalPrice;
 }
