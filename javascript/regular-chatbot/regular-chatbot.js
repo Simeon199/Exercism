@@ -8,7 +8,7 @@
  */
 
 export function isValidCommand(command) {
-  throw new Error('Remove this line and implement the function');
+  return /^chatbot/i.test(command);
 }
 
 /**
@@ -18,7 +18,8 @@ export function isValidCommand(command) {
  * @returns {string} The message without the emojis encryption
  */
 export function removeEmoji(message) {
-  throw new Error('Remove this line and implement the function');
+  const regex = /emoji\d+/gi;
+  return message.replace(regex, '');
 }
 
 /**
@@ -28,7 +29,11 @@ export function removeEmoji(message) {
  * @returns {string} the Chatbot response to the phone Validation
  */
 export function checkPhoneNumber(number) {
-  throw new Error('Remove this line and implement the function');
+  const regex = /^\(\+\d{2}\) \d{3}-\d{3}-\d{3}$/;
+  if(regex.test(number) === true){
+    return "Thanks! You can now download me to your phone."
+  }
+  return "Oops, it seems like I can't reach out to" + " " + number;
 }
 
 /**
@@ -38,7 +43,8 @@ export function checkPhoneNumber(number) {
  * @returns {string[] | null} all the possible URL's that the user may have answered
  */
 export function getURL(userInput) {
-  throw new Error('Remove this line and implement the function');
+  const regex = /\w+(\.\w+)+/g;
+  return userInput.match(regex) || [];
 }
 
 /**
@@ -48,5 +54,8 @@ export function getURL(userInput) {
  * @returns {string} Greeting from the chatbot
  */
 export function niceToMeetYou(fullName) {
-  throw new Error('Remove this line and implement the function');
+  let nameArray = fullName.split(/, */);
+  let lastName = nameArray[0];
+  let firstName = nameArray[1];
+  return `Nice to meet you, ${firstName} ${lastName}`;
 }
