@@ -73,7 +73,7 @@ export function isNumericString(value) {
  */
 // @ts-ignore
 export function isElectronic(object) {
-  throw new Error('Remove this line and implement the isElectronic function');
+  return object instanceof ElectronicDevice;
 }
 
 /**
@@ -84,9 +84,10 @@ export function isElectronic(object) {
  */
 // @ts-ignore
 export function isNonEmptyArray(value) {
-  throw new Error(
-    'Remove this line and implement the isNonEmptyArray function',
-  );
+  if(Array.isArray(value)){
+    return value.length !== 0;
+  }
+  return false;
 }
 
 /**
@@ -97,7 +98,11 @@ export function isNonEmptyArray(value) {
  */
 // @ts-ignore
 export function isEmptyArray(value) {
-  throw new Error('Remove this line and implement the isEmptyArray function');
+  let isArrayFilled = isNonEmptyArray(value);
+  if(isArrayFilled){
+    return false;
+  }
+  return true;
 }
 
 /**
@@ -108,7 +113,7 @@ export function isEmptyArray(value) {
  */
 // @ts-ignore
 export function hasType(object) {
-  throw new Error('Remove this line and implement the hasType function');
+  return type in object;
 }
 
 /**
@@ -119,7 +124,10 @@ export function hasType(object) {
  */
 // @ts-ignore
 export function assertHasId(object) {
-  throw new Error('Remove this line and implement the assertHasId function');
+  let isIdInObj = 'id' in object;
+  if(!isIdInObj){
+    throw Error("Object is missing the 'id' property");
+  }
 }
 
 /**
@@ -130,7 +138,7 @@ export function assertHasId(object) {
  */
 // @ts-ignore
 export function hasIdProperty(object) {
-  throw new Error('Remove this line and implement the hasIdProperty function');
+  return Object.hasOwn(object, 'id');
 }
 
 /**
@@ -141,5 +149,8 @@ export function hasIdProperty(object) {
  */
 // @ts-ignore
 export function hasDefinedType(object) {
-  throw new Error('Remove this line and implement the hasDefinedType function');
+  if(!(typeof object.type === 'undefined')){
+    return true;
+  }
+  return false;
 }
