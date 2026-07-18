@@ -5,7 +5,7 @@
 // implementing this exercise.
 
 // @ts-ignore
-import { type } from 'node:os';
+// import { type } from 'node:os';
 import { ElectronicDevice } from './lib.js';
 
 /**
@@ -62,7 +62,7 @@ export function isObject(value) {
  */
 // @ts-ignore
 export function isNumericString(value) {
-  return Number.isFinite(Number(value));
+  return typeof value === "string" && value.trim() !== "" && !Number.isNaN(Number(value)) && Number.isFinite(Number(value));
 }
 
 /**
@@ -98,11 +98,10 @@ export function isNonEmptyArray(value) {
  */
 // @ts-ignore
 export function isEmptyArray(value) {
-  let isArrayFilled = isNonEmptyArray(value);
-  if(isArrayFilled){
-    return false;
+  if(Array.isArray(value)){
+    return value.length === 0;
   }
-  return true;
+  return false;
 }
 
 /**
@@ -113,7 +112,7 @@ export function isEmptyArray(value) {
  */
 // @ts-ignore
 export function hasType(object) {
-  return type in object;
+  return 'type' in object;
 }
 
 /**
@@ -149,8 +148,12 @@ export function hasIdProperty(object) {
  */
 // @ts-ignore
 export function hasDefinedType(object) {
-  if(!(typeof object.type === 'undefined')){
-    return true;
+  if(Object.hasOwn(object, 'type')){
+    if(typeof object.type !== 'undefined'){
+      return true;
+    } else {
+      return false;
+    }
   }
   return false;
 }
