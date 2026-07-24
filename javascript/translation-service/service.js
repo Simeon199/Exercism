@@ -74,9 +74,10 @@ export class TranslationService {
   request(text) {
     const myPromise = () => {
       return new Promise((resolve, reject) => {
-        this.api.request(text, (result) => {
-          if(result){
-            reject(result);
+        // eslint-disable-next-line no-shadow
+        this.api.request(text, (error) => {
+          if(error){
+            reject(error);
           } else {
             resolve();
           }
