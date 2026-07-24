@@ -1,4 +1,10 @@
 /// <reference path="./global.d.ts" />
+
+// eslint-disable-next-line no-unused-vars
+import { error } from "node:console";
+// eslint-disable-next-line no-unused-vars
+import { text } from "node:stream/consumers";
+
 // @ts-check
 //
 // The lines above enable type checking for this file. Various IDEs interpret
@@ -26,8 +32,13 @@ export class TranslationService {
    * @param {string} text
    * @returns {Promise<string>}
    */
+  // eslint-disable-next-line no-shadow
   free(text) {
-    throw new Error('Implement the free function');
+    // @ts-ignore
+    return this.api.fetch(text).then(
+      function (result){
+          return result.translation;
+      });
   }
 
   /**
@@ -41,7 +52,13 @@ export class TranslationService {
    * @returns {Promise<string[]>}
    */
   batch(texts) {
-    throw new Error('Implement the batch function');
+    if(texts.length <= 0){
+      return Promise.reject(new BatchIsEmpty());
+    }
+    // eslint-disable-next-line no-shadow
+    return Promise.all(texts.map((text) => {
+      return this.free(text)
+    }));
   }
 
   /**
@@ -53,8 +70,20 @@ export class TranslationService {
    * @param {string} text
    * @returns {Promise<void>}
    */
+  // eslint-disable-next-line no-shadow
   request(text) {
-    throw new Error('Implement the request function');
+    const myPromise = () => {
+      return new Promise((resolve, reject) => {
+        this.api.request(text, (result) => {
+          if(result){
+            reject(result);
+          } else {
+            resolve();
+          }
+        });
+      });
+    }
+    return myPromise().catch(myPromise).catch(myPromise);
   }
 
   /**
@@ -67,8 +96,20 @@ export class TranslationService {
    * @param {number} minimumQuality
    * @returns {Promise<string>}
    */
+  // eslint-disable-next-line no-shadow
   premium(text, minimumQuality) {
-    throw new Error('Implement the premium function');
+    return this.api.fetch(text)
+    .catch(() => {
+      return this.request(text).then(() => {
+        return this.api.fetch(text);
+      });
+    })
+    .then((result) => {
+      if(result.quality < minimumQuality){
+        throw new QualityThresholdNotMet();
+      }
+      return result.translation
+    });
   }
 }
 
@@ -80,6 +121,7 @@ export class QualityThresholdNotMet extends Error {
   /**
    * @param {string} text
    */
+  // eslint-disable-next-line no-shadow
   constructor(text) {
     super(
       `
